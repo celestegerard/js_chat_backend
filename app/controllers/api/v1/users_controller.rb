@@ -1,13 +1,15 @@
 class Api::V1::UsersController < ApplicationController
   before_action :validate_session, only: [:show]
-  require 'digest'
   def create
     @user = User.create(user_params)
-    render json: {
-      :user_name => @user.username,
-      :token => Digest::SHA256.base64digest("#{@user.created_at}"),
-      :user_id => @user.id
-    }
+    if @user.valid?
+      response = {
+        :user_name => @user.username
+      }
+    else
+      response = {error: "Invalid user"}
+    end
+    render json: response
   end
 
   def show
