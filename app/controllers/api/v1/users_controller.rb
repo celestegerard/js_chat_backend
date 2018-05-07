@@ -3,7 +3,11 @@ class Api::V1::UsersController < ApplicationController
   require 'digest'
   def create
     @user = User.create(user_params)
-    render json: {:user_name => @user.username, :token => Digest::SHA256.base64digest("#{@user.created_at}")}
+    render json: {
+      :user_name => @user.username,
+      :token => Digest::SHA256.base64digest("#{@user.created_at}"),
+      :user_id => @user.id
+    }
   end
 
   def show
