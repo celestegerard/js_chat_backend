@@ -4,7 +4,8 @@ class Api::V1::UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       response = {
-        :user_name => @user.username
+        :user_name => @user.username,
+        :user_id => @user.id
       }
     else
       response = {error: "Invalid user"}
