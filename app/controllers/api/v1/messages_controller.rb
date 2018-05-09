@@ -1,8 +1,7 @@
 class Api::V1::MessagesController < ApplicationController
 
   def index
-    room = Room.find(params[:room_id])
-    messages = room.messages
+    messages = Messages.all
     render json:messages
   end
 
@@ -13,6 +12,6 @@ class Api::V1::MessagesController < ApplicationController
 
   private
   def message_params
-    params.require(:message).permit(:user_id,:room_id,:body)
+    params.require(:message).permit(:user_id,:body)
   end
 end
