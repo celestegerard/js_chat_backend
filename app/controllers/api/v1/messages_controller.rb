@@ -1,11 +1,12 @@
 class Api::V1::MessagesController < ApplicationController
 
   def index
-    messages = Messages.all
+    messages = Message.all
     render json:messages
   end
 
   def create
+    # byebug
     message = Message.create(message_params)
     render json:message
   end
